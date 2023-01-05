@@ -13,11 +13,3 @@ client.on("data", function (data) {
     console.log("DATA: " + data);
     //    client.destroy();
 });
-
-client.on("error", function (error) {
-    client.destroy();
-    console.log("Destroied client" + error);
-});
-//client.on("close", function () {
-//    console.log("Connection closed");
-//});

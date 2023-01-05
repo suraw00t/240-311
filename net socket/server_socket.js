@@ -19,16 +19,11 @@ net.createServer(function (sock) {
             if (sock !== key) key.write("Connected to all --> " + data);
             console.log(key + " = " + value);
         }
-        // console.log(clients);
 
         sock.write('You said "' + data + '"');
 
-        // sock.on("ready", function (sock) {
-        //     console.log("Hello world" + sock.remoteAddress);
-        // });
-
         // Add a 'close' event handler to this instance of socket
-        sock.on("close", function (data) {
+        sock.on("close", function () {
             console.log(
                 "CLOSED: " + sock.remoteAddress + " " + sock.remotePort
             );
@@ -39,13 +34,12 @@ net.createServer(function (sock) {
                     );
             }
             clients.delete(sock);
-
-            //for (var i = 0; i < clients.length; i++) {
-            //    if (sock !== clients[i])
-            //clients[i].write("Disconnected to all ---> " + data + "\n");
-            console.log();
-            //}
         });
+
+        for (let [key, value] of clients) {
+            if (sock !== key) key.write("Connected to all --> " + data);
+            console.log(key + " = " + value);
+        }
     });
 }).listen(PORT, HOST);
 

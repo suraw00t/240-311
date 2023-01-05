@@ -13,9 +13,3 @@ client.on("data", function (data) {
     console.log("DATA: " + data);
     //    client.destroy();
 });
-
-client.on("close", function (data) {
-    client.write(clientName);
-    console.log("DATA from closed: " + data);
-    console.log("Connection closed");
-});
