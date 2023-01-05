@@ -7,7 +7,7 @@ var clients = new Map();
 
 // We have a connection - a socket object is assigned to the connection automatically
 net.createServer(function (sock) {
-    console.log("CONNECTED: " + sock.remoteAddress + ":" + sock.remotePort);
+    console.log("\nCONNECTED: " + sock.remoteAddress + ":" + sock.remotePort);
 
     sock.on("data", function (data) {
         clients.set(sock, data);
@@ -15,7 +15,7 @@ net.createServer(function (sock) {
         console.log("DATA " + sock.remoteAddress + ": " + data);
 
         for (let [key, value] of clients) {
-            if (sock !== key) key.write(data + " is connect\n");
+            if (sock !== key) key.write(data + " is connected\n");
         }
 
         sock.write('You said "' + data + '"');
@@ -23,7 +23,7 @@ net.createServer(function (sock) {
         // Add a 'close' event handler to this instance of socket
         sock.on("close", function () {
             console.log(
-                "CLOSED: " +
+                "\nCLOSED: " +
                     sock.remoteAddress +
                     " " +
                     sock.remotePort +
@@ -33,7 +33,7 @@ net.createServer(function (sock) {
 
             for (let [key, value] of clients) {
                 if (sock !== key)
-                    key.write(clients.get(sock) + " is disconnect\n");
+                    key.write(clients.get(sock) + " is disconnected\n");
             }
 
             clients.delete(sock);
