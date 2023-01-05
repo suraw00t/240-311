@@ -1,11 +1,12 @@
 var net = require("net");
 var HOST = "127.0.0.1";
 var PORT = 6969;
+var clientName = "Client 3";
 var client = new net.Socket();
 client.connect(PORT, HOST, function () {
     console.log("CONNECTED TO: " + HOST + ":" + PORT);
 
-    client.write("I am Chuck Norris!");
+    client.write(clientName);
 });
 
 client.on("data", function (data) {
@@ -13,6 +14,8 @@ client.on("data", function (data) {
     //    client.destroy();
 });
 
-//client.on("close", function () {
-//    console.log("Connection closed");
-//});
+client.on("close", function (data) {
+    client.write(clientName);
+    console.log("DATA from closed: " + data);
+    console.log("Connection closed");
+});

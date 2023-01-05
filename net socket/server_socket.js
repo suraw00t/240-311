@@ -3,20 +3,23 @@ var net = require("net");
 var HOST = "127.0.0.1";
 var PORT = 6969;
 
-var clients = [];
+//var clients = [];
+var clients = new Map();
 
 // We have a connection - a socket object is assigned to the connection automatically
 net.createServer(function (sock) {
     console.log("CONNECTED: " + sock.remoteAddress + ":" + sock.remotePort);
-    clients.push(sock);
+    //clients.push(sock);
 
     sock.on("data", function (data) {
+        clients.set(sock, data);
         console.log("DATA " + sock.remoteAddress + ": " + data);
 
-        for (var i = 0; i < clients.length; i++) {
-            if (sock !== clients[i])
-                clients[i].write("Connected to all --> " + data);
+        for (let [key, value] of clients) {
+            if (sock !== key) key.write("Connected to all --> " + data);
+            console.log(key + " = " + value);
         }
+        // console.log(clients);
 
         sock.write('You said "' + data + '"');
 
@@ -29,10 +32,19 @@ net.createServer(function (sock) {
             console.log(
                 "CLOSED: " + sock.remoteAddress + " " + sock.remotePort
             );
-            for (var i = 0; i < clients.length; i++) {
-                if (sock !== clients[i])
-                    clients[i].write("Disconnected to all ---> " + data + "\n");
+            for (let [key, value] of clients) {
+                if (sock !== key)
+                    key.write(
+                        "Disconnected to all ---> " + clients.get(sock) + "\n"
+                    );
             }
+            clients.delete(sock);
+
+            //for (var i = 0; i < clients.length; i++) {
+            //    if (sock !== clients[i])
+            //clients[i].write("Disconnected to all ---> " + data + "\n");
+            console.log();
+            //}
         });
     });
 }).listen(PORT, HOST);
