@@ -1,6 +1,6 @@
 var net = require("net");
 
-var HOST = "127.0.0.1";
+var HOST = "localhost";
 var PORT = 6969;
 
 var clients = new Map();
@@ -14,11 +14,11 @@ net.createServer(function (sock) {
 
         console.log("DATA " + sock.remoteAddress + ": " + data);
 
+        sock.write('You said "' + data + '"');
+
         for (let [key, value] of clients) {
             if (sock !== key) key.write(data + " is connected\n");
         }
-
-        sock.write('You said "' + data + '"');
 
         // Add a 'close' event handler to this instance of socket
         sock.on("close", function () {
