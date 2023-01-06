@@ -15,6 +15,6 @@ client.on("data", function (data) {
     //    client.destroy();
 });
 
-//client.on("close", function () {
-//    console.log("Connection closed");
-//});
+client.on(error, (err) => {
+    console.log();
+});

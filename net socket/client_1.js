@@ -13,3 +13,7 @@ client.on("data", function (data) {
     console.log("DATA: " + data);
     //    client.destroy();
 });
+
+client.on("error", (err) => {
+    console.log(`${err}`);
+});

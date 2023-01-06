@@ -51,9 +51,6 @@ net.createServer(function (sock) {
             "Available clients(" + clients.size + "): " + [...clients.values()]
         );
     });
-
-    //For windows user
-    process.on("uncaughtException", () => {});
 }).listen(PORT, HOST);
 
 console.log("Server listening on " + HOST + ":" + PORT);
