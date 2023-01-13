@@ -5,6 +5,7 @@ var clientName = "Client 1";
 var client = new net.Socket();
 client.connect(PORT, HOST, function () {
     console.log("CONNECTED TO: " + HOST + ":" + PORT);
+    console.log("(Crtl C to exit)");
 
     client.write(clientName);
 });

@@ -15,6 +15,6 @@ client.on("data", function (data) {
     //    client.destroy();
 });
 
-client.on(error, (err) => {
-    console.log();
+client.on("error", (err) => {
+    console.log(err);
 });
