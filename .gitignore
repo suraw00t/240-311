@@ -1,6 +1,7 @@
 *.swp
 
 react/reactApp/node_modules
+react/my-app
 
 # dependencies
 /node_modules
