@@ -4,6 +4,7 @@ react/reactApp/node_modules
 react/my-app/.git
 react/my-app/.gitignore
 react/my-app/node_modules
+react/my-app
 
 # dependencies
 /node_modules
